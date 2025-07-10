@@ -1,6 +1,16 @@
 import { useState, useEffect } from 'react';
 import ReadingLogForm from '../components/ReadingLogForm';
 
+declare global {
+  interface Window {
+    CommonNinja?: {
+      init: () => void;
+    };
+  }
+}
+
+
+
 export default function Genie() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
@@ -116,6 +126,20 @@ export default function Genie() {
       document.body.appendChild(script);
     }
   }, []);
+
+  useEffect(() => {
+  const tryInit = () => {
+    if (window.CommonNinja && typeof window.CommonNinja.init === 'function') {
+      window.CommonNinja.init();
+    } else {
+      console.warn('CommonNinja not ready yet, retrying...');
+      setTimeout(tryInit, 200); // retry until ready
+    }
+  };
+
+  tryInit();
+}, []);
+
 
   return (
     <div
