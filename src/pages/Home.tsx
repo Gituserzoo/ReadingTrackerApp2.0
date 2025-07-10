@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
   <div className="page-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <h1>Welcome to Woodland Readers!</h1>
+    <h1>Welcome to Woodland Park!</h1>
 
     <div style={{
       display: 'flex',
