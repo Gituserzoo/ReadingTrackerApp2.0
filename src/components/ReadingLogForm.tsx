@@ -2,15 +2,16 @@ import { useState } from 'react';
 
 interface Props {
   user: string;
+  onEntrySaved?: () => void;
 }
 
-export default function ReadingLogForm({ user }: Props) {
+export default function ReadingLogForm({ user, onEntrySaved }: Props) {
   const [book, setBook] = useState('');
   const [startPage, setStartPage] = useState('');
   const [endPage, setEndPage] = useState('');
   const [pagesRead, setPagesRead] = useState(0);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const start = parseInt(startPage, 10);
@@ -24,21 +25,43 @@ export default function ReadingLogForm({ user }: Props) {
     const pages = end - start;
     setPagesRead(pages);
 
-    console.log({
+    const payload = {
       user,
-      book,
-      startPage: start,
-      endPage: end,
-      pagesRead: pages,
-      date: new Date().toLocaleDateString(),
-    });
+      book_title: book,
+      start_page: start,
+      end_page: end,
+      pages_read: pages,
+      date: new Date().toISOString().split('T')[0],
+    };
 
-    // You can later connect this to Supabase here
+    try {
+      const res = await fetch(
+        'https://qzqxlgjnrgetzufseagz.supabase.co/rest/v1/reading_logs',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            Prefer: 'return=representation',
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
-    // Clear form
-    setBook('');
-    setStartPage('');
-    setEndPage('');
+      if (!res.ok) throw new Error('Failed to insert data into Supabase');
+
+      // Refresh recent entries in parent
+      onEntrySaved?.();
+
+      // Clear form
+      setBook('');
+      setStartPage('');
+      setEndPage('');
+    } catch (err) {
+      console.error(err);
+      alert('Error saving to Supabase. Check console.');
+    }
   }
 
   return (
@@ -66,4 +89,5 @@ export default function ReadingLogForm({ user }: Props) {
     </form>
   );
 }
+
 

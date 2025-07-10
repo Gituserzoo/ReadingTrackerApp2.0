@@ -6,6 +6,53 @@ export default function Genie() {
   const [answer, setAnswer] = useState('');
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [loading, setLoading] = useState(false);
+  const [recentEntries, setRecentEntries] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchRecentEntries();
+  }, []);
+
+  async function fetchRecentEntries() {
+    try {
+      const res = await fetch(
+        'https://qzqxlgjnrgetzufseagz.supabase.co/rest/v1/reading_logs?user=eq.Genie&order=created_at.desc&limit=5',
+        {
+          headers: {
+            apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setRecentEntries(data);
+    } catch (error) {
+      console.error('Failed to fetch recent entries:', error);
+    }
+  }
+
+  async function handleDelete(id: number) {
+    const password = prompt('Enter the delete password:');
+    if (password !== import.meta.env.VITE_DELETE_PASSWORD) {
+      alert('Incorrect password.');
+      return;
+    }
+
+    const confirmDelete = confirm('Are you sure you want to delete this entry?');
+    if (!confirmDelete) return;
+
+    try {
+      await fetch(`https://qzqxlgjnrgetzufseagz.supabase.co/rest/v1/reading_logs?id=eq.${id}`, {
+        method: 'DELETE',
+        headers: {
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
+      });
+      fetchRecentEntries();
+    } catch (err) {
+      console.error('Failed to delete entry:', err);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -59,7 +106,6 @@ export default function Genie() {
     };
   }, [timeoutId]);
 
-  // Inject weather widget script once
   useEffect(() => {
     const existingScript = document.getElementById('commonninja-script');
     if (!existingScript) {
@@ -90,7 +136,7 @@ export default function Genie() {
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'rgba(255,255,255,0.95)',
-          padding: '2.25rem',
+          padding: '1.25rem',
           borderRadius: '10px',
           maxWidth: '460px',
           zIndex: 1,
@@ -132,7 +178,56 @@ export default function Genie() {
       <div className="reading-log-container">
         <div className="reading-log-box">
           <h1 style={{ marginTop: 0 }}>Genie's Reading Log</h1>
-          <ReadingLogForm user="Genie" />
+          <ReadingLogForm user="Genie" onEntrySaved={fetchRecentEntries} />
+
+          {/* Recent Entries (Below Reading Log) */}
+          <div
+            style={{
+              marginTop: '2rem',
+              padding: '1rem',
+              background: 'rgba(255, 255, 255, 0.92)',
+              borderRadius: '10px',
+              width: '100%',
+              maxWidth: '420px',
+              textAlign: 'center',
+            }}
+          >
+            <h3 style={{ marginBottom: '1rem' }}>Recent Entries</h3>
+            {recentEntries.length === 0 ? (
+              <p>No entries yet.</p>
+            ) : (
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {recentEntries.map((entry) => (
+                  <li key={entry.id} style={{ marginBottom: '0.75rem', position: 'relative' }}>
+                    <strong>{entry.book_title}</strong> – {entry.end_page - entry.start_page} pages <br />
+                    <span style={{ fontSize: '0.9rem', color: '#555' }}>
+                      {new Date(entry.created_at).toLocaleDateString(undefined, {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </span>
+                    <button
+                      onClick={() => handleDelete(entry.id)}
+                      style={{
+                        position: 'absolute',
+                        right: 0,
+                        top: 0,
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        color: '#888',
+                        fontSize: '1rem',
+                      }}
+                      title="Delete entry"
+                    >
+                      🗑️
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
 
