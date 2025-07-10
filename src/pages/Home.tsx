@@ -23,46 +23,31 @@ export default function Home() {
   }
 
   return (
-    <div className="page-content">
-      <h1>Welcome to Woodland Readers!</h1>
+  <div className="page-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <h1>Welcome to Woodland Readers!</h1>
 
-      <div style={{ marginBottom: '1rem' }}>
-        <button onClick={handleJoke} style={{ fontSize: '20px', padding: '10px 20px' }}>
-          Generate Joke
-        </button>
-        {loadingJoke && <p>Loading joke...</p>}
-        {joke && (
-          <div style={{
-            background: 'rgba(255,255,255,0.85)',
-            color: 'black',
-            padding: '1rem',
-            borderRadius: '8px',
-            marginTop: '1rem',
-            maxWidth: '500px'
-          }}>
-            <strong>Joke:</strong><br /> {joke}
-          </div>
-        )}
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '20px',
+      minHeight: '300px',
+      justifyContent: 'center',
+    }}>
+      <button onClick={handleJoke} style={{ fontSize: '20px', padding: '10px 20px' }}>
+        Generate Joke
+      </button>
+      <div style={{ minHeight: '60px', maxWidth: '500px', background: joke ? 'rgba(255,255,255,0.85)' : 'none', padding: joke ? '1rem' : '0', borderRadius: '8px', color: 'black' }}>
+        {loadingJoke ? <p>Loading joke...</p> : joke && (<><strong>Joke:</strong><br /> {joke}</>)}
       </div>
 
-      <div>
-        <button onClick={handleCompliment} style={{ fontSize: '20px', padding: '10px 20px' }}>
-          Generate Compliment
-        </button>
-        {loadingCompliment && <p>Loading compliment...</p>}
-        {compliment && (
-          <div style={{
-            background: 'rgba(255,255,255,0.85)',
-            color: 'black',
-            padding: '1rem',
-            borderRadius: '8px',
-            marginTop: '1rem',
-            maxWidth: '500px'
-          }}>
-            <strong>Compliment:</strong><br /> {compliment}
-          </div>
-        )}
+      <button onClick={handleCompliment} style={{ fontSize: '20px', padding: '10px 20px' }}>
+        Generate Compliment
+      </button>
+      <div style={{ minHeight: '60px', maxWidth: '500px', background: compliment ? 'rgba(255,255,255,0.85)' : 'none', padding: compliment ? '1rem' : '0', borderRadius: '8px', color: 'black' }}>
+        {loadingCompliment ? <p>Loading compliment...</p> : compliment && (<><strong>Compliment:</strong><br /> {compliment}</>)}
       </div>
     </div>
-  );
+  </div>
+);
 }
