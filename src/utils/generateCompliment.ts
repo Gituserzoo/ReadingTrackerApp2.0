@@ -1,9 +1,18 @@
 export async function generateCompliment(): Promise<string> {
-  const res = await fetch("/api/generateCompliment", {
-    method: "POST",
-    body: JSON.stringify({}),
-  });
+  try {
+    const res = await fetch("/api/generateCompliment", {
+      method: "POST",
+      body: JSON.stringify({}),
+    });
 
-  const data = await res.json();
-  return data.compliment;
+    if (!res.ok) {
+      throw new Error("Failed to fetch compliment");
+    }
+
+    const data = await res.json();
+    return data.compliment;
+  } catch (error) {
+    console.error("Error fetching compliment:", error);
+    return "You're awesome anyway!"; // fallback compliment
+  }
 }
