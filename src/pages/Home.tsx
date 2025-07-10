@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { generateJoke } from '../utils/generateJoke';
-import { generateCompliment } from '../utils/generateCompliment';
+import { generateJoke } from '../utils/generateJokeNew';
+import { generateCompliment } from '../utils/generateComplimentNew';
 
 export default function Home() {
   const [joke, setJoke] = useState('');

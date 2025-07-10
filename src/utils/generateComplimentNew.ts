@@ -5,14 +5,11 @@ export async function generateCompliment(): Promise<string> {
       body: JSON.stringify({}),
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch compliment");
-    }
-
+    if (!res.ok) throw new Error("Failed to fetch compliment");
     const data = await res.json();
     return data.compliment;
   } catch (error) {
     console.error("Error fetching compliment:", error);
-    return "You're awesome anyway!"; // fallback compliment
+    return "You're awesome anyway!";
   }
 }
