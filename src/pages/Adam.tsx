@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ReadingLogForm from '../components/ReadingLogForm';
+import './Adam.css';
 
 export default function Adam() {
   const [question, setQuestion] = useState('');
@@ -106,7 +107,6 @@ export default function Adam() {
     };
   }, [timeoutId]);
 
-  // Inject WeatherWidget script for Quincy
   useEffect(() => {
     const scriptId = 'weatherwidget-io-js';
     if (!document.getElementById(scriptId)) {
@@ -123,30 +123,9 @@ export default function Adam() {
   }, []);
 
   return (
-    <div
-      className="page-content"
-      style={{
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '90vh',
-      }}
-    >
-      {/* AMA Box (Left) */}
-      <div
-        style={{
-          position: 'absolute',
-          left: '14rem',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          background: 'rgba(255,255,255,0.95)',
-          padding: '1.25rem',
-          borderRadius: '10px',
-          maxWidth: '460px',
-          zIndex: 1,
-        }}
-      >
+    <div className="page-content">
+      {/* AMA Box */}
+      <div className="ama-box">
         <h2>AMA. Answers disappear.</h2>
         <form onSubmit={handleSubmit}>
           <textarea
@@ -179,7 +158,7 @@ export default function Adam() {
         )}
       </div>
 
-      {/* Reading Log (Center) */}
+      {/* Reading Log */}
       <div className="reading-log-container">
         <div className="reading-log-box">
           <h1 style={{ marginTop: 0 }}>Adam's Reading Log</h1>
@@ -236,23 +215,8 @@ export default function Adam() {
         </div>
       </div>
 
-      {/* Weather Widget (Right) */}
-      <div
-        style={{
-          position: 'absolute',
-          right: '14rem',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          background: 'rgba(255,255,255,0.95)',
-          padding: '1rem',
-          borderRadius: '10px',
-          width: '280px',
-          maxHeight: '90vh',
-          overflow: 'auto',
-          zIndex: 1,
-        }}
-      >
-        <h2 style={{ textAlign: 'center', marginTop: '10px', fontWeight: 'bold' }}>Weather</h2>
+      {/* Weather Widget */}
+      <div className="weather-widget">
         <a
           className="weatherwidget-io"
           href="https://forecast7.com/en/39d94n91d41/quincy/?unit=us"
@@ -261,10 +225,9 @@ export default function Adam() {
           data-days="5"
           data-theme="sky"
         >
-          QUINCY WEATHER
+          Adam's House WEATHER
         </a>
       </div>
     </div>
   );
 }
-

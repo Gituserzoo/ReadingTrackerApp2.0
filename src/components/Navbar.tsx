@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import './Navbar.css';
 
 export default function Navbar() {
   return (
-    <nav style={{ display: 'flex', gap: '1rem', padding: '1rem' }}>
-      <Link to="/">Home Page</Link>
-      <Link to="/genie">Genie</Link>
-      <Link to="/adam">Adam</Link>
-      <Link to="/stats">Stats</Link>
-      <Link to="/mountains">Mountains are cool</Link>
+    <nav className="navbar">
+      <NavLink to="/" className="nav-link">Home</NavLink>
+      <NavLink to="/genie" className="nav-link">Genie</NavLink>
+      <NavLink to="/adam" className="nav-link">Adam</NavLink>
+      <NavLink to="/stats" className="nav-link">Stats</NavLink>
+      <NavLink to="/mountains" className="nav-link">Mountains</NavLink>
     </nav>
-  )
+  );
 }
