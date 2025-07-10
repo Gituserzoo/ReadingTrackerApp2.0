@@ -1,10 +1,4 @@
 export default function Home() {
-<<<<<<< HEAD
-  return (
-    <div className="page-content">
-      <h1>Welcome to Woodland Readers!</h1>
-      <p>This is your cozy reading corner.</p>
-=======
   const [joke, setJoke] = useState('');
   const [compliment, setCompliment] = useState('');
   const [loadingJoke, setLoadingJoke] = useState(false);
@@ -65,7 +59,6 @@ export default function Home() {
           </div>
         )}
       </div>
->>>>>>> 352c11e (Saving current work before rebase)
     </div>
   );
 }
