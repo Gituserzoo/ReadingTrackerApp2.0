@@ -1,0 +1,116 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+  color: white;
+}
+
+.background-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.background-wrapper::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/WoodlandPark_fixed.jpg'); /* Must be in public folder */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.8; /* You can adjust this to control brightness */
+  z-index: -1;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 250px); 
+  color: black;
+  padding: 1rem;
+}
+
+.reading-log-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.reading-log-box {
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  max-width: 500px;
+  width: 100%;
+}
+
+.reading-form {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.reading-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.reading-form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.reading-form h2 {
+  text-align: center;
+}
+
+
+/* ==== Mobile Fixes ==== */
+@media (max-width: 768px) {
+  nav a {
+    font-size: 32px;
+    padding: 20px;
+    display: block;
+    text-align: center;
+  }
+
+  .reading-form {
+    width: 95%;
+    padding: 30px;
+    background-color: rgba(255, 255, 0, 0.8); /* bright yellow for testing */
+  }
+
+  .reading-form input,
+  .reading-form button {
+    width: 100%;
+    padding: 20px;
+    font-size: 24px;
+    margin-bottom: 15px;
+    background-color: lightblue; /* just for visibility */
+  }
+
+  .reading-form h2 {
+    font-size: 32px;
+    text-align: center;
+    color: red;
+  }
+}
+
+
