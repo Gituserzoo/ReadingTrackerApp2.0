@@ -106,14 +106,19 @@ export default function Adam() {
     };
   }, [timeoutId]);
 
+  // Inject WeatherWidget script for Quincy
   useEffect(() => {
-    const existingScript = document.getElementById('commonninja-script');
-    if (!existingScript) {
+    const scriptId = 'weatherwidget-io-js';
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
-      script.src = 'https://cdn.commoninja.com/sdk/latest/commonninja.js';
-      script.id = 'commonninja-script';
-      script.defer = true;
+      script.id = scriptId;
+      script.src = 'https://weatherwidget.io/js/widget.min.js';
+      script.async = true;
       document.body.appendChild(script);
+    } else {
+      if ((window as any).__weatherwidget_init) {
+        (window as any).__weatherwidget_init();
+      }
     }
   }, []);
 
@@ -180,7 +185,7 @@ export default function Adam() {
           <h1 style={{ marginTop: 0 }}>Adam's Reading Log</h1>
           <ReadingLogForm user="Adam" onEntrySaved={fetchRecentEntries} />
 
-          {/* Recent Entries (Below Reading Log) */}
+          {/* Recent Entries */}
           <div
             style={{
               marginTop: '2rem',
@@ -248,11 +253,18 @@ export default function Adam() {
         }}
       >
         <h2 style={{ textAlign: 'center', marginTop: '10px', fontWeight: 'bold' }}>Weather</h2>
-        <div
-          id="weather-widget-container"
-          className="commonninja_component pid-33681ccb-64cd-48f9-bcbf-a25a92b794b0"
-        ></div>
+        <a
+          className="weatherwidget-io"
+          href="https://forecast7.com/en/39d94n91d41/quincy/?unit=us"
+          data-label_1="Adam's House"
+          data-label_2="WEATHER"
+          data-days="5"
+          data-theme="sky"
+        >
+          QUINCY WEATHER
+        </a>
       </div>
     </div>
   );
 }
+

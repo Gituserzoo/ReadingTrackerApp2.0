@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
 import ReadingLogForm from '../components/ReadingLogForm';
 
-declare global {
-  interface Window {
-    CommonNinja?: {
-      init: () => void;
-    };
-  }
-}
-
-
-
 export default function Genie() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
@@ -117,29 +107,19 @@ export default function Genie() {
   }, [timeoutId]);
 
   useEffect(() => {
-    const existingScript = document.getElementById('commonninja-script');
-    if (!existingScript) {
+    const scriptId = 'weatherwidget-io-js';
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
-      script.src = 'https://cdn.commoninja.com/sdk/latest/commonninja.js';
-      script.id = 'commonninja-script';
-      script.defer = true;
+      script.id = scriptId;
+      script.src = 'https://weatherwidget.io/js/widget.min.js';
+      script.async = true;
       document.body.appendChild(script);
+    } else {
+      if ((window as any).__weatherwidget_init) {
+        (window as any).__weatherwidget_init();
+      }
     }
   }, []);
-
-  useEffect(() => {
-  const tryInit = () => {
-    if (window.CommonNinja && typeof window.CommonNinja.init === 'function') {
-      window.CommonNinja.init();
-    } else {
-      console.warn('CommonNinja not ready yet, retrying...');
-      setTimeout(tryInit, 200); // retry until ready
-    }
-  };
-
-  tryInit();
-}, []);
-
 
   return (
     <div
@@ -204,7 +184,7 @@ export default function Genie() {
           <h1 style={{ marginTop: 0 }}>Genie's Reading Log</h1>
           <ReadingLogForm user="Genie" onEntrySaved={fetchRecentEntries} />
 
-          {/* Recent Entries (Below Reading Log) */}
+          {/* Recent Entries */}
           <div
             style={{
               marginTop: '2rem',
@@ -272,10 +252,16 @@ export default function Genie() {
         }}
       >
         <h2 style={{ textAlign: 'center', marginTop: '10px', fontWeight: 'bold' }}>Weather</h2>
-        <div
-          id="weather-widget-container"
-          className="commonninja_component pid-33681ccb-64cd-48f9-bcbf-a25a92b794b0"
-        ></div>
+        <a
+          className="weatherwidget-io"
+          href="https://forecast7.com/en/39d74n104d99/denver/?unit=us"
+          data-label_1="Genie's House"
+          data-label_2="WEATHER"
+          data-days="5"
+          data-theme="sky"
+        >
+          Genie's House WEATHER
+        </a>
       </div>
     </div>
   );
