@@ -42,6 +42,21 @@
     padding: 1rem;
   }
 
+@media (max-width: 768px) {
+  .reading-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
+  }
+
+  .reading-form input {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
   .reading-log-container,
   .weather-widget,
   .ama-box {
@@ -53,4 +68,10 @@
     width: 80%;
     margin: 1rem auto;
   }
+}
+
+.reading-form input {
+  width: 95%;
+  max-width: 99.6%;
+  box-sizing: border-box;
 }
