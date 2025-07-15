@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import './Stats.css';
+
 
 type ReadingLog = {
   id: number;
@@ -110,9 +112,35 @@ export default function Stats() {
   const adamStats = getUserStats('Adam');
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around', padding: '2rem',height: '27vh', paddingTop: '300px' }}>
-      {renderStatsBox('Genie', genieStats)}
-      {renderStatsBox('Adam', adamStats)}
+  <div className="page-content">
+    <div>
+      <div className="stat-box">
+        {renderStatsBox('Genie', genieStats)}
+      </div>
+      <div className="book-list-box">
+        <h4 style={{ marginBottom: '0.5rem' }}>Books Read</h4>
+        <ul>
+          {Object.entries(genieStats.bookTotals).map(([book, pages]) => (
+            <li key={book}>{book} – {pages} pages</li>
+          ))}
+        </ul>
+      </div>
     </div>
-  );
+
+    <div>
+      <div className="stat-box">
+        {renderStatsBox('Adam', adamStats)}
+      </div>
+      <div className="book-list-box">
+        <h4 style={{ marginBottom: '0.5rem' }}>Books Read</h4>
+        <ul>
+          {Object.entries(adamStats.bookTotals).map(([book, pages]) => (
+            <li key={book}>{book} – {pages} pages</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+);
+
 }
