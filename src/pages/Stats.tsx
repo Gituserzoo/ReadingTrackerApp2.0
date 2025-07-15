@@ -112,8 +112,8 @@ export default function Stats() {
   const adamStats = getUserStats('Adam');
 
   return (
-  <div className="page-content">
-    <div>
+  <div className="stats-page">
+    <div className="user-section">
       <div className="stat-box">
         {renderStatsBox('Genie', genieStats)}
       </div>
@@ -127,7 +127,7 @@ export default function Stats() {
       </div>
     </div>
 
-    <div>
+    <div className="user-section">
       <div className="stat-box">
         {renderStatsBox('Adam', adamStats)}
       </div>

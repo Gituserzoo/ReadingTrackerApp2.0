@@ -1,12 +1,11 @@
 /* Stats.css */
 
-.page-content {
+.stats-page {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   gap: 2rem;
   padding: 2rem;
-  flex-wrap: wrap;
+  padding-top: 150px;
 }
 
 .stat-box {
@@ -19,13 +18,19 @@
 }
 
 .book-list-box {
-  margin-top: 1rem;
+  margin-top: 0rem;
   background: rgba(255, 255, 255, 0.92);
-  padding: 1rem;
+  padding: 0.75rem 1rem 1rem 1rem;
   border-radius: 10px;
   max-width: 320px;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: black;
+  text-align: center
+}
+
+.book-list-box h4 {
+  margin: 0.25rem 0 0.5rem 0; /* ⬅ smaller top margin */
 }
 
 .book-list-box ul {
@@ -37,6 +42,7 @@
 
 .book-list-box li {
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 /* Mobile layout */
@@ -45,5 +51,25 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+  }
+}
+
+.user-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Desktop view: side-by-side layout */
+@media (min-width: 768px) {
+  .stats-page {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+
+  .user-section {
+    align-items: flex-start;
   }
 }
