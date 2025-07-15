@@ -33,7 +33,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Mobile overrides */
+
 @media (max-width: 768px) {
   .page-content {
     flex-direction: column;
@@ -41,20 +41,6 @@
     min-height: auto;
     padding: 1rem;
   }
-
-@media (max-width: 768px) {
-  .reading-form {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 0 1rem;
-  }
-
-  .reading-form input {
-    width: 100%;
-    max-width: 100%;
-  }
-}
 
 
   .reading-log-container,
@@ -65,10 +51,25 @@
     right: auto;
     top: auto;
     transform: none;
-    width: 80%;
+    width: 95%;
+    max-width: 500px;
     margin: 1rem auto;
   }
+
+  .reading-form {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
+  }
+
+  .reading-form input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
 }
+
 
 .reading-form input {
   width: 95%;
