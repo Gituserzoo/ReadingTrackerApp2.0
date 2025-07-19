@@ -10,6 +10,10 @@ export default function ReadingLogForm({ user, onEntrySaved }: Props) {
   const [startPage, setStartPage] = useState('');
   const [endPage, setEndPage] = useState('');
   const [pagesRead, setPagesRead] = useState(0);
+  const [logDate, setLogDate] = useState(() => new Date().toISOString().split('T')[0]);
+
+  
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,7 +35,7 @@ export default function ReadingLogForm({ user, onEntrySaved }: Props) {
       start_page: start,
       end_page: end,
       pages_read: pages,
-      date: new Date().toISOString().split('T')[0],
+      date: logDate,
     };
 
     try {
@@ -82,6 +86,16 @@ export default function ReadingLogForm({ user, onEntrySaved }: Props) {
         <label>End Page:</label><br />
         <input type="number" value={endPage} onChange={e => setEndPage(e.target.value)} required />
       </div>
+      <div>
+  <label>Date:</label><br />
+  <input
+    type="date"
+    value={logDate}
+    onChange={e => setLogDate(e.target.value)}
+    required
+  />
+</div>
+
 
       <button type="submit">Submit</button>
 
