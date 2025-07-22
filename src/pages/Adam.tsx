@@ -166,50 +166,56 @@ export default function Adam() {
 
           {/* Recent Entries */}
           <div
-            style={{
-              marginTop: '2rem',
-              padding: '1rem',
-              background: 'rgba(255, 255, 255, 0.92)',
-              borderRadius: '10px',
-              width: '100%',
-              maxWidth: '420px',
-              textAlign: 'center',
-            }}
-          >
+  style={{
+    marginTop: '2rem',
+    padding: '1rem',
+    background: 'rgba(255, 255, 255, 0.92)',
+    borderRadius: '10px',
+    width: '100%',
+    maxWidth: '420px',
+    textAlign: 'center',
+    boxSizing: 'border-box',
+    paddingRight: '1.25rem', // Add a little extra space for scrollbar clearance
+  }}
+>
+
             <h3 style={{ marginBottom: '1rem' }}>Recent Entries</h3>
             {recentEntries.length === 0 ? (
               <p>No entries yet.</p>
             ) : (
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                {recentEntries.map((entry) => (
-                  <li key={entry.id} style={{ marginBottom: '0.75rem', position: 'relative' }}>
-                    <strong>{entry.book_title}</strong> – {entry.end_page - entry.start_page} pages <br />
-                    <span style={{ fontSize: '0.9rem', color: '#555' }}>
-                      {new Date(entry.created_at).toLocaleDateString(undefined, {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </span>
-                    <button
-                      onClick={() => handleDelete(entry.id)}
-                      style={{
-                        position: 'absolute',
-                        right: 0,
-                        top: 0,
-                        border: 'none',
-                        background: 'transparent',
-                        cursor: 'pointer',
-                        color: '#888',
-                        fontSize: '1rem',
-                      }}
-                      title="Delete entry"
-                    >
-                      🗑️
-                    </button>
-                  </li>
-                ))}
-              </ul>
+             <div style={{ maxHeight: '160px', overflowY: 'auto', paddingRight: '4px' }}>
+  <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+    {recentEntries.map((entry) => (
+      <li key={entry.id} style={{ marginBottom: '0.75rem', position: 'relative' }}>
+        <strong>{entry.book_title}</strong> – {entry.end_page - entry.start_page} pages <br />
+        <span style={{ fontSize: '0.9rem', color: '#555' }}>
+          {new Date(entry.created_at).toLocaleDateString(undefined, {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </span>
+        <button
+          onClick={() => handleDelete(entry.id)}
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            border: 'none',
+            background: 'transparent',
+            cursor: 'pointer',
+            color: '#888',
+            fontSize: '1rem',
+          }}
+          title="Delete entry"
+        >
+          🗑️
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
+ 
             )}
           </div>
         </div>
