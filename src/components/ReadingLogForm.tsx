@@ -10,7 +10,13 @@ export default function ReadingLogForm({ user, onEntrySaved }: Props) {
   const [startPage, setStartPage] = useState('');
   const [endPage, setEndPage] = useState('');
   const [pagesRead, setPagesRead] = useState(0);
-  const [logDate, setLogDate] = useState(() => new Date().toISOString().split('T')[0]);
+  const [logDate, setLogDate] = useState(() => {
+  const today = new Date();
+  const local = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
+  return local.toISOString().split('T')[0];
+});
+
+
 
   
 
