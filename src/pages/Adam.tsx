@@ -189,7 +189,7 @@ export default function Adam() {
       <li key={entry.id} style={{ marginBottom: '0.75rem', position: 'relative' }}>
         <strong>{entry.book_title}</strong> – {entry.end_page - entry.start_page} pages <br />
         <span style={{ fontSize: '0.9rem', color: '#555' }}>
-          {new Date(entry.created_at).toLocaleDateString(undefined, {
+          {new Date(entry.date).toLocaleDateString('en-US', {
             month: 'long',
             day: 'numeric',
             year: 'numeric',
